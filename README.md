@@ -1,11 +1,11 @@
-# Rsbuild Project
+# Zulu Framework
 
 ## Setup
 
 Install the dependencies:
 
 ```bash
-pnpm install
+npm install
 ```
 
 ## Get Started
@@ -13,17 +13,29 @@ pnpm install
 Start the dev server:
 
 ```bash
-pnpm dev
+npm run dev
 ```
 
 Build the app for production:
 
 ```bash
-pnpm build
+npm run build
 ```
 
-Preview the production build locally:
+Serve built app for production:
 
 ```bash
-pnpm preview
+npm run serve
 ```
+
+Build and serve built app for production:
+
+```bash
+npm start
+```
+
+## VS Code Extensions
+
+[Biome](https://marketplace.visualstudio.com/items?itemName=biomejs.biome)
+ - Linter
+ - Formatter
