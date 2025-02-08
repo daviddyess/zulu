@@ -37,7 +37,10 @@ const server = createServer(
       return new Response(readFileSync(path), {
         headers: {
           "Content-Type": contentType,
-          "Cache-Control": "no-store; must-revalidate",
+          "Cache-Control":
+            process.env.NODE_ENV === "development"
+              ? "no-store; must-revalidate"
+              : "max-age=604800",
         },
       });
     }
