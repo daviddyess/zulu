@@ -1,4 +1,4 @@
-import path, { extname, join } from "node:path";
+import { extname, join } from "node:path";
 import { existsSync, readFileSync } from "node:fs";
 import { createServer } from "node:http";
 import { createRequire } from "node:module";
@@ -40,7 +40,7 @@ const server = createServer(
       });
     }
 
-    const remotesPath = path.join(process.cwd(), "./dist/server/index.js");
+    const remotesPath = join(process.cwd(), "./dist/server/index.js");
     const importedApp = require(remotesPath);
     request.grazie = { scripts: js, links: css };
 
