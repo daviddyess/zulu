@@ -1,40 +1,51 @@
-import fs from "node:fs";
+import { extname, join } from "node:path";
+import { existsSync, readFileSync } from "node:fs";
 import { createServer } from "node:http";
 import { createRequire } from "node:module";
-import path from "node:path";
 import { createRequestListener } from "@mjackson/node-fetch-server";
 
+const port = parseInt(process.env.ZULU_PORT ?? "3000", 10);
+const listenHost = process.env.ZULU_HOSTNAME ?? "localhost";
+
 const require = createRequire(import.meta.url);
-
 const { entries } = JSON.parse(
-  fs.readFileSync("./dist/manifest.json", "utf-8")
+  readFileSync(join(process.cwd(), "dist", "manifest.json"), "utf-8")
 );
-
 const { js, css } = entries.index.initial;
+const contentTypeMap = new Map([
+  [".ico", "image/x-icon"],
+  [".js", "application/javascript"],
+  [".css", "text/css"],
+  [".map", "application/json"],
+]);
 
 const server = createServer(
   createRequestListener(async (request) => {
-    const url = new URL(request.url, "http://localhost:3000");
+    const url = new URL(request.url, `http://${listenHost}:${port}`);
+    const ext = extname(url.pathname);
 
-    if (url.pathname.endsWith(".ico")) {
-      return await serveICOFile(url);
-    }
+    if (contentTypeMap.has(ext)) {
+      const contentType = contentTypeMap.get(ext);
+      const path = join(process.cwd(), "dist", url.pathname);
 
-    if (url.pathname.endsWith(".js")) {
-      return await serveJSFile(url);
-    }
-
-    if (url.pathname.endsWith(".css")) {
-      return await serveCSSFile(url);
-    }
-
-    if (process.env.NODE_ENV === "development") {
-      if (url.pathname.endsWith(".map")) {
-        return await serveMAPFile(url);
+      if (!existsSync(path)) {
+        return new Response(null, {
+          status: 404,
+        });
       }
+
+      return new Response(readFileSync(path), {
+        headers: {
+          "Content-Type": contentType,
+          "Cache-Control":
+            process.env.NODE_ENV === "development"
+              ? "no-store; must-revalidate"
+              : "max-age=604800",
+        },
+      });
     }
 
-    const remotesPath = path.join(process.cwd(), "./dist/server/index.js");
+    const remotesPath = join(process.cwd(), "dist", "server", "index.js");
     const importedApp = require(remotesPath);
     request.grazie = { scripts: js, links: css };
 
@@ -42,50 +53,6 @@ const server = createServer(
   })
 );
 
-server.listen(3000, () => {
-  console.log("Listening on http://localhost:3000");
+server.listen(port, () => {
+  console.log(`Listening on http://${listenHost}:${port}`);
 });
-
-async function serveICOFile(url) {
-  const filePath = path.join(process.cwd(), "dist", url.pathname);
-  const src = fs.readFileSync(filePath);
-
-  return new Response(src, {
-    headers: {
-      "Content-Type": "image/x-icon",
-      "Cache-Control": "no-store; must-revalidate",
-    },
-  });
-}
-
-async function serveCSSFile(url) {
-  const filePath = path.join(process.cwd(), "dist", url.pathname);
-  const src = fs.readFileSync(filePath, "utf-8");
-
-  return new Response(src, {
-    headers: {
-      "Content-Type": "text/css",
-      "Cache-Control": "no-store; must-revalidate",
-    },
-  });
-}
-async function serveJSFile(url) {
-  const filePath = path.join(process.cwd(), "dist", url.pathname);
-  const src = fs.readFileSync(filePath, "utf-8");
-  return new Response(src, {
-    headers: {
-      "Content-Type": "application/javascript",
-      "Cache-Control": "no-store; must-revalidate",
-    },
-  });
-}
-async function serveMAPFile(url) {
-  const filePath = path.join(process.cwd(), "dist", url.pathname);
-  const src = fs.readFileSync(filePath, "utf-8");
-  return new Response(src, {
-    headers: {
-      "Content-Type": "application/json",
-      "Cache-Control": "no-store; must-revalidate",
-    },
-  });
-}

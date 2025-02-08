@@ -1,7 +1,7 @@
 {
-  "name": "rsbuild-app",
+  "name": "zulu",
   "private": true,
-  "version": "1.0.0",
+  "version": "0.1.0",
   "scripts": {
     "build": "rsbuild build",
     "check": "biome check --write",
@@ -17,7 +17,7 @@
       "./README.md"
     ],
     "ext": "ts,tsx,js,jsx,json,css,scss,md",
-    "exec": "NODE_ENV=development npm run start"
+    "exec": "cross-env NODE_ENV=development npm run start"
   },
   "dependencies": {
     "@mantine/charts": "^7.16.2",
@@ -51,6 +51,7 @@
     "@types/express": "^5.0.0",
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
+    "cross-env": "^7.0.3",
     "express": "^4.21.2",
     "nodemon": "^3.1.9",
     "postcss-preset-mantine": "^1.17.0",
