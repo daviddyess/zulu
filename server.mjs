@@ -8,7 +8,9 @@ const port = parseInt(process.env.ZULU_PORT ?? "3000", 10);
 const listenHost = process.env.ZULU_HOSTNAME ?? "localhost";
 
 const require = createRequire(import.meta.url);
-const { entries } = JSON.parse(readFileSync("./dist/manifest.json", "utf-8"));
+const { entries } = JSON.parse(
+  readFileSync(join(process.cwd(), "dist", "manifest.json"), "utf-8")
+);
 const { js, css } = entries.index.initial;
 const contentTypeMap = new Map([
   [".ico", "image/x-icon"],
@@ -40,7 +42,7 @@ const server = createServer(
       });
     }
 
-    const remotesPath = join(process.cwd(), "./dist/server/index.js");
+    const remotesPath = join(process.cwd(), "dist", "server", "index.js");
     const importedApp = require(remotesPath);
     request.grazie = { scripts: js, links: css };
 
