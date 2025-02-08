@@ -12,7 +12,7 @@ const { entries } = JSON.parse(
 
 const { js, css } = entries.index.initial;
 
-createServer(
+const server = createServer(
   createRequestListener(async (request) => {
     const url = new URL(request.url, "http://localhost:3000");
 
@@ -40,7 +40,9 @@ createServer(
 
     return await importedApp.handler(request);
   })
-).listen(3000, () => {
+);
+
+server.listen(3000, () => {
   console.log("Listening on http://localhost:3000");
 });
 
