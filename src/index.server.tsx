@@ -1,3 +1,5 @@
+import { LinksFunction } from '@/zulu/core/Links';
+import { ScriptsFunction } from '@/zulu/core/Scripts';
 import { StrictMode } from 'react';
 import { renderToString } from 'react-dom/server';
 import {
@@ -5,9 +7,7 @@ import {
   createStaticHandler,
   createStaticRouter,
 } from 'react-router';
-import { LinksFunction } from './Grazie/modules/Links.js';
-import { ScriptsFunction } from './Grazie/modules/Scripts.js';
-import routes from './routes.js';
+import routes from '~/routes';
 
 const { query, dataRoutes, queryRoute } = createStaticHandler(routes);
 
@@ -23,10 +23,10 @@ export async function handler(request: Request) {
 }
 
 export async function handleDocumentRequest(request: Request) {
-  const { grazie } = request;
-  if (grazie) {
-    const { scripts, links } = grazie;
-
+  const {
+    zulu: { scripts, links },
+  } = request;
+  if (scripts || links) {
     if (links?.length > 0) {
       LinksFunction(
         links.map((link) => ({

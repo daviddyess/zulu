@@ -1,5 +1,5 @@
+import { links } from '@/zulu/core/Links';
 import { Fragment } from 'react/jsx-runtime';
-import { links } from './modules/Links';
 
 type Link = {
   rel: string;

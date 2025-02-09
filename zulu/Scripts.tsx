@@ -1,5 +1,5 @@
+import { scripts } from '@/zulu/core/Scripts';
 import { Fragment } from 'react/jsx-runtime';
-import { scripts } from './modules/Scripts';
 
 type Script = {
   src: string;

@@ -1,6 +1,6 @@
 import { Text, Title } from '@mantine/core';
 import { useRouteLoaderData } from 'react-router';
-import classes from './Welcome.module.css';
+import classes from '~/components/Welcome/Welcome.module.css';
 
 export function Welcome() {
   const data = useRouteLoaderData('root');

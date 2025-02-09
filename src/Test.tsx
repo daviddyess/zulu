@@ -1,5 +1,5 @@
 import { Container, Text, Title } from '@mantine/core';
-import classes from './Test.module.css';
+import classes from '~/Test.module.css';
 
 const Test = () => {
   return (

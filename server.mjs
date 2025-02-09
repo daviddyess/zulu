@@ -1,10 +1,13 @@
-import { extname, join } from "node:path";
 import { existsSync, readFileSync } from "node:fs";
 import { createServer } from "node:http";
 import { createRequire } from "node:module";
+import { extname, join } from "node:path";
 import { createRequestListener } from "@mjackson/node-fetch-server";
+import { loadEnv } from "@rsbuild/core";
+// Load environment variables
+loadEnv();
 
-const port = parseInt(process.env.ZULU_PORT ?? "3000", 10);
+const port = Number.parseInt(process.env.ZULU_PORT ?? "3000", 10);
 const listenHost = process.env.ZULU_HOSTNAME ?? "localhost";
 
 const require = createRequire(import.meta.url);
@@ -47,7 +50,7 @@ const server = createServer(
 
     const remotesPath = join(process.cwd(), "dist", "server", "index.js");
     const importedApp = require(remotesPath);
-    request.grazie = { scripts: js, links: css };
+    request.zulu = { scripts: js, links: css };
 
     return await importedApp.handler(request);
   })

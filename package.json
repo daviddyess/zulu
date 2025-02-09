@@ -16,7 +16,7 @@
       "./node_modules/*",
       "./README.md"
     ],
-    "ext": "ts,tsx,js,jsx,json,css,scss,md",
+    "ext": "ts,tsx,js,jsx,json,css,scss,md,mjs",
     "exec": "cross-env NODE_ENV=development npm run start"
   },
   "dependencies": {

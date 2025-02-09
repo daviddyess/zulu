@@ -1,4 +1,7 @@
 import '@mantine/core/styles.css';
+import { Links } from '@/zulu/Links';
+import { Meta } from '@/zulu/Meta';
+import { Scripts } from '@/zulu/Scripts';
 import {
   ColorSchemeScript,
   MantineProvider,
@@ -6,9 +9,6 @@ import {
   mantineHtmlProps,
 } from '@mantine/core';
 import { Outlet } from 'react-router';
-import { Links } from './Grazie/Links';
-import { Meta } from './Grazie/Meta';
-import { Scripts } from './Grazie/Scripts';
 
 const theme = createTheme({
   //
