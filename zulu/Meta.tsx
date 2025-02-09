@@ -1,4 +1,4 @@
-import { meta as metaMap } from './modules/Meta';
+import { meta as metaMap } from '@/zulu/core/Meta';
 
 type MetaTag = {
   charSet?: string;

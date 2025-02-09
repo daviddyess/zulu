@@ -1,7 +1,7 @@
 import type { ActionFunctionArgs, LoaderFunctionArgs } from 'react-router';
-import App from './App';
-import Test from './Test';
-import Root from './root';
+import App from '~/App';
+import Test from '~/Test';
+import Root from '~/root';
 
 const isServer = typeof document === 'undefined';
 

@@ -1,6 +1,6 @@
-import { MetaFunction } from './Grazie/modules/Meta';
-import { ColorSchemeToggle } from './components/ColorSchemeToggle/ColorSchemeToggle';
-import { Welcome } from './components/Welcome/Welcome';
+import { MetaFunction } from '@/zulu/core/Meta';
+import { ColorSchemeToggle } from '~/components/ColorSchemeToggle/ColorSchemeToggle';
+import { Welcome } from '~/components/Welcome/Welcome';
 
 export default function App() {
   MetaFunction([
