@@ -1,29 +1,29 @@
-import { defineConfig } from '@rsbuild/core';
-import { pluginReact } from '@rsbuild/plugin-react';
+import { defineConfig } from "@rsbuild/core";
+import { pluginReact } from "@rsbuild/plugin-react";
 
 export default defineConfig({
   plugins: [pluginReact()],
   environments: {
     web: {
       output: {
-        target: 'web',
+        target: "web",
       },
       source: {
         entry: {
-          index: './src/index.client',
+          index: "./src/client/index",
         },
       },
     },
     ssr: {
       output: {
-        target: 'node',
+        target: "node",
         distPath: {
-          root: 'dist/server',
+          root: "dist/server",
         },
       },
       source: {
         entry: {
-          index: './src/index.server',
+          index: "./src/server/index",
         },
       },
     },

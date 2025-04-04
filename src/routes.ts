@@ -1,37 +1,41 @@
-import type { ActionFunctionArgs, LoaderFunctionArgs } from 'react-router';
-import App from '~/App';
-import Test from '~/Test';
-import Root from '~/root';
-
-const isServer = typeof document === 'undefined';
+import type { ActionFunctionArgs, LoaderFunctionArgs } from "react-router";
+import App from "~/client/routes/App";
+import Test from "~/client/routes/Test";
+import Root from "~/client/routes/root";
 
 export default [
   {
-    id: 'root',
+    id: "root",
     Component: Root,
-    path: '/',
+    path: "/",
     async loader(args: LoaderFunctionArgs) {
-      const mod = await import('./root.js');
+      const mod = await import("./server/routes/root.js");
       if (mod?.loader) {
         return mod.loader(args);
       }
     },
     async action(args: ActionFunctionArgs) {
-      const mod = await import('./root.js');
+      const mod = await import("./server/routes/root.js");
       if (mod?.action) {
         return mod.action(args);
       }
     },
     children: [
       {
-        id: 'app',
+        id: "app",
         Component: App,
         index: true,
       },
       {
-        id: 'test',
+        id: "test",
         Component: Test,
-        path: 'test',
+        path: "test",
+        async loader(args: LoaderFunctionArgs) {
+          const mod = await import("./server/routes/Test.js");
+          if (mod?.loader) {
+            return mod.loader(args);
+          }
+        },
       },
     ],
   },

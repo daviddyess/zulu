@@ -1,24 +1,18 @@
-import '@mantine/core/styles.css';
-import { Links } from '@/zulu/Links';
-import { Meta } from '@/zulu/Meta';
-import { Scripts } from '@/zulu/Scripts';
+import "@mantine/core/styles.css";
+import { Links } from "@/zulu/Links";
+import { Meta } from "@/zulu/Meta";
+import { Scripts } from "@/zulu/Scripts";
 import {
   ColorSchemeScript,
   MantineProvider,
   createTheme,
   mantineHtmlProps,
-} from '@mantine/core';
-import { Outlet } from 'react-router';
+} from "@mantine/core";
+import { Outlet } from "react-router";
 
 const theme = createTheme({
   //
 });
-
-export const loader = async () => {
-  return {
-    hello: 'world',
-  };
-};
 
 export default function Root() {
   return (

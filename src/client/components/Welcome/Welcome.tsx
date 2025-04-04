@@ -1,18 +1,18 @@
-import { Text, Title } from '@mantine/core';
-import { useRouteLoaderData } from 'react-router';
-import classes from '~/components/Welcome/Welcome.module.css';
+import { Text, Title } from "@mantine/core";
+import { useRouteLoaderData } from "react-router";
+import classes from "~/client/components/Welcome/Welcome.module.css";
 
 export function Welcome() {
-  const data = useRouteLoaderData('root');
+  const data = useRouteLoaderData("root");
   return (
     <>
       <Title className={classes.title} ta="center" mt={100}>
-        Welcome to{' '}
+        Welcome to{" "}
         <Text
           inherit
           variant="gradient"
           component="span"
-          gradient={{ from: 'teal', to: 'grape' }}
+          gradient={{ from: "teal", to: "grape" }}
         >
           Zulu
         </Text>
